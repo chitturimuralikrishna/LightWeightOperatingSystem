@@ -17,7 +17,7 @@ struct idt_desc idt_descriptors[LW_OS_TOTAL_INTRRUPTS];
  * This struct contains the base address and the size of the IDT. It is used to
  * load the IDT into the processor.
  */
-struct idtr_desc idtr_descriptors;
+struct idtr_desc idtr_descriptor;
 
 extern void idt_load(struct idtr_desc* ptr);
 
@@ -39,12 +39,12 @@ void idt_set(int interrupt_no, void *address)
 void idt_init()
 {
     memset(idt_descriptors, 0, sizeof(idt_descriptors));
-    idtr_descriptors.limit = sizeof(struct idt_desc) - 1;
-    idtr_descriptors.base = (uint32_t)idt_descriptors;
+    idtr_descriptor.limit = sizeof(struct idt_desc) - 1;
+    idtr_descriptor.base = (uint32_t)idt_descriptors;
 
     idt_set(0, idt_zero);
 
     // Load the interrupt descriptor table
-    idt_load(&idtr_descriptors);
+    idt_load(&idtr_descriptor);
 
 }
