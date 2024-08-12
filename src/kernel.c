@@ -140,4 +140,8 @@ void kernel_main()
     terminal_initialize();
     print("Hello world!\ntest");
     idt_init();
+
+    while(1)
+    {
+    }
 }
