@@ -6,6 +6,7 @@ export PATH="$PREFIX/bin:$PATH"
 cd build
 mkdir -p idt
 mkdir -p memory
+mkdir -p io
 cd ..
 
 make all
