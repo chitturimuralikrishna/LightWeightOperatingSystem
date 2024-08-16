@@ -143,7 +143,8 @@ void kernel_main()
     print("Hello world!\ntest");
     idt_init();
 
-    outb(0x60, 0xff);
+    //enable_interrupts(); // this is causing seabio or crash in WSR, so try to install vm and try
+    //outb(0x60, 0xff);
 
     while(1)
     {

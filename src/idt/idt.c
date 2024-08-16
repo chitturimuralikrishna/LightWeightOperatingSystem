@@ -2,6 +2,7 @@
 #include "config.h"
 #include "kernel.h"
 #include "memory.h"
+#include "io/io.h"
 
 /**
  * @brief Array of IDT descriptors.
@@ -20,6 +21,19 @@ struct idt_desc idt_descriptors[LW_OS_TOTAL_INTRRUPTS];
 struct idtr_desc idtr_descriptor;
 
 extern void idt_load(struct idtr_desc* ptr);
+extern void int21h();
+extern void no_interrupt();
+
+void int21h_handler()
+{
+    print("Keyboard pressed!\n");
+    outb(0x20, 0x20);
+}
+
+void no_interrupt_handler()
+{
+    outb(0x20, 0x20);
+}
 
 void idt_zero()
 {
@@ -42,7 +56,13 @@ void idt_init()
     idtr_descriptor.limit = sizeof(struct idt_desc) - 1;
     idtr_descriptor.base = (uint32_t)idt_descriptors;
 
+    for(int i = 0; i < LW_OS_TOTAL_INTRRUPTS; i++)  
+    {
+        idt_set(i, no_interrupt);   
+    }
+
     idt_set(0, idt_zero);
+    idt_set(0x21, int21h);
 
     // Load the interrupt descriptor table
     idt_load(&idtr_descriptor);

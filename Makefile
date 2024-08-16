@@ -2,6 +2,7 @@ FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt
 INCLUDES = -I./src
 INCLUDES += -I./src/idt
 INCLUDES += -I./src/memory
+INCLUDES += -I./src/io
 FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 all: ./bin/boot.bin ./bin/kernel.bin
 	rm -rf ./bin/os.bin
