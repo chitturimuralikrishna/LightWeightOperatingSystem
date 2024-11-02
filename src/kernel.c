@@ -2,7 +2,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "idt/idt.h"
-#include "io/io.h"
+#include "io/io.h"  
+#include "memory/heap/kheap.h"
+
 
 // writing own print code in kernal
 uint16_t* video_mem = 0;
@@ -141,10 +143,27 @@ void kernel_main()
 {
     terminal_initialize();
     print("Hello world!\ntest");
+
+    //Initialize the heap
+    kheap_init();
+
+    // Initialize the Intrrupt Descriptor Table (IDT)
     idt_init();
 
     //enable_interrupts(); // this is causing seabio or crash in WSR, so try to install vm and try
     //outb(0x60, 0xff);
+    
+    void *ptr = kmalloc(10);
+    void *ptr2 = kmalloc(100); 
+
+    kfree(ptr);
+
+    void *ptr3 = kmalloc(10);
+
+    if(ptr != NULL  || ptr2 != NULL ||  ptr3 != NULL)
+    {
+
+    }
 
     while(1)
     {

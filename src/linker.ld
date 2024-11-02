@@ -8,6 +8,11 @@ SECTIONS
         *(.text)
     }
 
+    .asm : ALIGN(4096)
+    {
+        *(.asm)
+    }
+
     .rodata : ALIGN(4096)
     {
         *(.rodata)
@@ -23,10 +28,4 @@ SECTIONS
         *(COMMON)
         *(.bss)
     }
-
-    .asm : ALIGN(4096)
-    {
-	*(.asm)
-    }
-
 }

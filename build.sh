@@ -7,6 +7,10 @@ cd build
 mkdir -p idt
 mkdir -p memory
 mkdir -p io
+cd memory
+mkdir -p heap
 cd ..
+cd ..
+
 
 make all
